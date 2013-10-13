@@ -1,3 +1,0 @@
-# Lana
-
-** TODO: Add description **
