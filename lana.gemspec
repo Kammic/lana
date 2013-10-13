@@ -17,8 +17,10 @@ Gem::Specification.new do |s|
   s.rdoc_options  = ["--charset=UTF-8"]
   s.required_rubygems_version = ">= 1.3.6"
 
+  s.add_dependency("pandoc-ruby", "~> 0.7")
+  s.add_dependency("grit")
+
   s.add_development_dependency("rake", "~> 10.1")
   s.add_development_dependency("rspec", "~> 2.14")
-  #s.add_dependency("padrino-core", "~> 0.11.0")
-  #s.add_dependency("padrino-helpers", "~> 0.11.0")
+  s.add_development_dependency("pry")
 end
