@@ -2,7 +2,7 @@ defmodule LanaGitTest do
   use ExUnit.Case
 
   teardown do
-    System.cmd("rm -rf #{Lana.Git.clone_location}")
+    File.rm_rf(Lana.Git.clone_location)
     :ok
   end
 
