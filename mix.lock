@@ -1,0 +1,2 @@
+[ "geef": {:git, "git://github.com/carlosmn/geef.git", "72078cb099a42f63ce00d4d0a291d736fa500578", []},
+  "yamler": {:git, "git://github.com/superbobry/yamler.git", "b68772701d9bff9fcb69ab2c3d35b898f08ea5ba", []} ]
