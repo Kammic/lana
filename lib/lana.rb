@@ -1,4 +1,5 @@
 require 'lana/version'
+require 'active_support'
 require 'lana/manifest'
 require 'lana/repo'
 require 'lana/generator'

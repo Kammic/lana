@@ -2,7 +2,7 @@
 require File.expand_path("../lib/lana/version.rb", __FILE__)
 
 Gem::Specification.new do |s|
-  s.name          = "Lana"
+  s.name          = "lana"
   s.authors       = ["Sumeet Singh"]
   s.email         = "ortuna@gmail.com"
   s.homepage      = "http://www.padrinorb.com"
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
 
   s.add_dependency("pandoc-ruby", "~> 0.7")
+  s.add_dependency("activesupport", "~> 4.0")
   s.add_dependency("grit")
 
   s.add_development_dependency("rake", "~> 10.1")
