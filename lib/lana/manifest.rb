@@ -1,24 +1,31 @@
-require 'yaml'
+require 'json'
 
 module Lana
   class FileNotFound < Exception; end
+  class InvalidManifest < Exception; end
 
   class Manifest
-    attr_reader :path, :yaml
+    attr_reader :path
 
     def initialize(path)
       raise FileNotFound unless File.exists? path
-      @path = path
-      @yaml = digest(path)
+      @path   = path
+      @config = parse_json
     end
 
     def [](key)
-      @yaml[key]
+      @config[key]
     end
 
     private
-    def digest(path)
-      YAML.load_file path
+    def read_file
+      File.read(@path)
+    end
+
+    def parse_json
+      JSON.parse(read_file)
+    rescue JSON::ParserError => e
+      raise InvalidManifest
     end
   end
 end
