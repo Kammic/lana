@@ -17,7 +17,23 @@ module Lana
       @config[key]
     end
 
+    def pages
+      recursive_page_list(self["pages"]).flatten
+    end
+
     private
+    def recursive_page_list(manifest_pages)
+      [].tap do |pages|
+        manifest_pages.each do |_, value|
+          if value.respond_to? :each
+            pages << recursive_page_list(value)
+          else
+            pages << value
+          end
+        end
+      end
+    end
+
     def read_file
       File.read(@path)
     end

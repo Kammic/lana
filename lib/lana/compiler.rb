@@ -5,25 +5,8 @@ module Lana
     end
 
     def compile(output_path)
-      system("pandoc -o #{output_path} #{page_list.join(' ')}")
+      pages = @manifest.pages
+      system("pandoc -o #{output_path} #{pages.join(' ')}")
     end
-
-    private
-    def page_list
-      recursive_page_list(@manifest["pages"]).flatten
-    end
-
-    def recursive_page_list(manifest_pages)
-      [].tap do |pages|
-        manifest_pages.each do |_, value|
-          if value.respond_to? :each
-            pages << recursive_page_list(value)
-          else
-            pages << value
-          end
-        end
-      end
-    end
-
   end
 end
