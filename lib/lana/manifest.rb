@@ -8,7 +8,7 @@ module Lana
     attr_reader :path
 
     def initialize(path)
-      raise FileNotFound unless File.exists? path
+      raise FileNotFound.new(path) unless File.exists? path
       @path   = path
       @config = parse_json
     end

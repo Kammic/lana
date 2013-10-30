@@ -2,9 +2,9 @@ module Lana
   class Compiler
     attr_reader :base_path
 
-    def initialize(manifest, base_path = '')
-      @manifest   = manifest
+    def initialize(manifest_path, base_path = '')
       @base_path  = add_slash(base_path)
+      @manifest   = Manifest.new("#{@base_path}#{manifest_path}")
     end
 
     def compile(output_path)
