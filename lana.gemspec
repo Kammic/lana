@@ -10,9 +10,9 @@ Gem::Specification.new do |s|
   s.summary       = "Genearte a book give a git repo"
   s.version       = Lana::Version
   s.date          = Time.now.strftime("%Y-%m-%d")
-  s.files         = `/usr/local/bin/git ls-files`.split("\n") | Dir.glob("{lib}/**/*")
-  s.test_files    = `/usr/local/bin/git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `/usr/local/bin/git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files         = `git ls-files`.split("\n") | Dir.glob("{lib}/**/*")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.rdoc_options  = ["--charset=UTF-8"]
   s.required_rubygems_version = ">= 1.3.6"
