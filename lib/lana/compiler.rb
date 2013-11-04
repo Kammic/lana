@@ -23,7 +23,7 @@ module Lana
       options << "--variable mainfont=Georgia"
       options << "--variable sansfont=Arial"
       options << "--variable monofont=\"Bitstream Vera Sans Mono\""
-      options << "--variable fontsize=12pt"
+      options << "--variable fontsize=14pt"
       options.join(' ')
     end
 
