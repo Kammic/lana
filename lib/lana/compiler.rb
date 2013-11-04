@@ -9,10 +9,19 @@ module Lana
 
     def compile(output_path)
       pages = @manifest.pages.map { |page| full_path(page) }
-      system("pandoc -o #{output_path} #{pages.join(' ')}")
+      system("pandoc #{options} -o #{output_path} #{pages.join(' ')}")
     end
 
     private
+    def options
+      options = "-f markdown_mmd"
+      options << "-V geometry:margin=1in"
+      options << "--variable mainfont=Georgia"
+      options << "--variable sansfont=Arial"
+      options << "--variable monofont=\"Bitstream Vera Sans Mono\""
+      options << "--variable fontsize=12pt"
+    end
+
     def add_slash(path)
       return path if path == ''
       return path if path.end_with?('/')
