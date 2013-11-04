@@ -14,12 +14,21 @@ module Lana
 
     private
     def options
-      options = "-f markdown_mmd"
+      options = []
+      options << append_file
+      options << "-f markdown_github"
+      options << "--toc"
+      options << "-N"
       options << "-V geometry:margin=1in"
       options << "--variable mainfont=Georgia"
       options << "--variable sansfont=Arial"
       options << "--variable monofont=\"Bitstream Vera Sans Mono\""
       options << "--variable fontsize=12pt"
+      options.join(' ')
+    end
+
+    def append_file
+      "-H #{File.expand_path('../../pandoc/append_file.tex', __FILE__)}"
     end
 
     def add_slash(path)

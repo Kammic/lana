@@ -16,6 +16,13 @@ describe Lana::Compiler do
     end
   end
 
+  context '#append_file' do
+    it 'returns the file path of linebreak' do
+      compiler = subject.new('simple.json', fixture_path(''))
+      compiler.send(:append_file)
+    end
+  end
+
   context '#initialize' do
     it 'can take manifest as an argument' do
       subject.new(fixture_path)
@@ -36,7 +43,10 @@ describe Lana::Compiler do
   context '#compile' do
     it 'sends the pages list to pandoc' do
       pages = Lana::Manifest.new(fixture_path).pages
-      @compiler.should_receive(:system).with("pandoc -o output.pdf #{pages.join(' ')}")
+      @compiler.should_receive(:system).with do |command|
+        expect(command).to match(/output\.pdf/)
+        expect(command).to match(pages.join(' '))
+      end
       @compiler.compile("output.pdf")
     end
 
@@ -45,7 +55,10 @@ describe Lana::Compiler do
       pages    = manifest.pages.map { |page| "#{fixture_path(page)}" }
       compiler = subject.new('simple.json', fixture_path(''))
 
-      compiler.should_receive(:system).with("pandoc -o output.pdf #{pages.join(' ')}")
+      compiler.should_receive(:system).with do |command|
+        expect(command).to match(/output\.pdf/)
+        expect(command).to match(pages.join(' '))
+      end
       compiler.compile("output.pdf")
     end
   end
