@@ -48,7 +48,7 @@ describe Lana::BookGenerator do
       expect(File.exists?(tmp_repo_path)).to eq(true)
     end
 
-    it 'Generates a pdf from the manifest' do
+    xit 'Generates a pdf from the manifest' do
       FileUtils.rm tmp_book_path if File.exists? tmp_book_path
       double = double().as_null_object
       double.stub(:clone)

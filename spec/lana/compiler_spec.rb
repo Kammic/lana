@@ -7,7 +7,7 @@ describe Lana::Compiler do
     @compiler = subject.new(fixture_path)
   end
   context 'book' do
-    it 'can compile a book' do
+    xit 'can compile a book' do
       output_path = File.expand_path('../../tmp/output.pdf', __FILE__)
       compiler    = subject.new('simple.json', fixture_path(''))
       compiler.compile(output_path)
