@@ -24,6 +24,7 @@ module Lana
       options << "--variable sansfont=Arial"
       options << "--variable monofont=\"Bitstream Vera Sans Mono\""
       options << "--variable fontsize=14pt"
+      options << "--latex-engine=xelatex"
       options.join(' ')
     end
 
