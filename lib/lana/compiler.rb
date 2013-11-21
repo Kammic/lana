@@ -21,6 +21,7 @@ module Lana
       options << "-N"
       options << "-V geometry:margin=1in"
       options << "--latex-engine=xelatex"
+      options << "--mathjax"
       #options << "--variable mainfont=Georgia"
       #options << "--variable sansfont=Arial"
       #options << "--variable monofont=\"Bitstream Vera Sans Mono\""
