@@ -20,11 +20,11 @@ module Lana
       options << "--toc"
       options << "-N"
       options << "-V geometry:margin=1in"
-      options << "--variable mainfont=Georgia"
-      options << "--variable sansfont=Arial"
-      options << "--variable monofont=\"Bitstream Vera Sans Mono\""
-      options << "--variable fontsize=14pt"
       options << "--latex-engine=xelatex"
+      #options << "--variable mainfont=Georgia"
+      #options << "--variable sansfont=Arial"
+      #options << "--variable monofont=\"Bitstream Vera Sans Mono\""
+      #options << "--variable fontsize=14pt"
       options.join(' ')
     end
 
