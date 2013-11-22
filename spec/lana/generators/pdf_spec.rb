@@ -15,7 +15,7 @@ describe Lana::Generators::PDF do
     FileUtils.rm_rf(output_path) if File.exists?(output_path)
   end
 
-  it 'generates an output' do
+  xit 'generates an output' do
     gen = subject.new([page_one, page_two], output_path)
     gen.generate
     expect(File.exists?(output_path)).to eq(true)
