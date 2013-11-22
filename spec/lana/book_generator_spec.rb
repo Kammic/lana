@@ -23,43 +23,42 @@ describe Lana::BookGenerator do
     end
   end
 
+  context '#clone_repo' do
+    it 'calls clone on grit' do
+      double    = double().as_null_object
+      generator = subject.new(remote: 'git@github.com:Kammic/lana.git',
+                              local: '/tmp')
+      generator.stub(:grit_repo).and_return(double)
+      double.should_receive(:clone).with({branch: 'master'}, 
+                                         'git@github.com:Kammic/lana.git',
+                                         '/tmp')
+      generator.send(:clone_repo)
+    end
+  end
+
   context '#generate' do
     let(:tmp_repo_path){ File.expand_path('../../tmp/clone', __FILE__) }
     let(:tmp_book_path){ File.expand_path('../../tmp/book.pdf', __FILE__) }
     let(:fixture_repo) { File.expand_path('../../fixtures/example_book', __FILE__) }
 
-    it 'calls clone on grit' do
-      double = double().as_null_object
-      compiler = subject.new(remote: 'git@github.com:Kammic/lana.git',
-                             local: '/tmp')
-      compiler.stub(:grit_repo).and_return(double)
-      double.should_receive(:clone).with({branch: 'master'}, 
-                                         'git@github.com:Kammic/lana.git',
-                                         '/tmp')
-      compiler.stub(:compiler).and_return(double)
-      compiler.generate
-    end
+    it 'inits the object with the right paths and output' do
+      pdf_double  = double()
+      pdf_double.should_receive(:new) do |paths, output_path|
+        expect(paths).to include(fixture_path('chapters/chapter1.md'))
+        expect(paths).to include(fixture_path('chapters/chapter2.md'))
+        expect(output_path).to eq('output.pdf')
+        pdf_double
+      end
+      pdf_double.should_receive(:generate)
 
-    xit 'clones the repo' do
-      FileUtils.rm_rf tmp_repo_path
-      compiler = subject.new(remote: 'git@github.com:Kammic/lana.git',
-                             local: tmp_repo_path)
-      compiler.generate
-      expect(File.exists?(tmp_repo_path)).to eq(true)
-    end
+      generator = subject.new(remote: 'git@github.com:Kammic/lana.git',
+                              local: fixture_path(''),
+                              branch: 'dev',
+                              manifest_file: 'simple.json',
+                              output: 'output.pdf')
 
-    xit 'Generates a pdf from the manifest' do
-      FileUtils.rm tmp_book_path if File.exists? tmp_book_path
-      double = double().as_null_object
-      double.stub(:clone)
-      compiler = subject.new(remote: 'git@github.com:Kammic/lana.git',
-                             local: fixture_repo,
-                             manifest_file: 'simple.json',
-                             output: tmp_book_path)
-      compiler.stub(:grit_repo).and_return(double)
-      compiler.generate
-      expect(File.exists?(tmp_book_path)).to eq(true)
+      generator.should_receive(:clone_repo).and_return true
+      generator.generate(pdf_double)
     end
-
   end
 end

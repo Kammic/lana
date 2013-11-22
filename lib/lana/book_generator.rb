@@ -6,21 +6,31 @@ module Lana
 
     def initialize(options = {})
       @options       = default_options.merge(options)
-      @local         = @options[:local]
+      @local         = "#{@options[:local]}/"
       @remote        = @options[:remote]
       @branch        = @options[:branch]
       @manifest_file = @options[:manifest_file]
       @output        = @options[:output]
     end
 
-    def generate
-      grit_repo.clone({branch: branch}, remote, local)
-      compiler.compile(output)
+    def generate(const)
+      clone_repo
+      generator = const.new(pages, output)
+      generator.generate
     end
 
     private
-    def compiler
-      Compiler.new(manifest_file, local)
+    def clone_repo
+      grit_repo.clone({branch: branch}, remote, local)
+    end
+
+    def pages
+      manifest = Manifest.new("#{@local}/#{@manifest_file}")
+      manifest.pages.map { |page| full_path(page) }
+    end
+
+    def full_path(file)
+      "#{@local}#{file}"
     end
 
     def grit_repo
