@@ -6,7 +6,7 @@ module Lana
 
     def initialize(options = {})
       @options       = default_options.merge(options)
-      @local         = "#{@options[:local]}/"
+      @local         = @options[:local]
       @remote        = @options[:remote]
       @branch        = @options[:branch]
       @manifest_file = @options[:manifest_file]
@@ -30,7 +30,7 @@ module Lana
     end
 
     def full_path(file)
-      "#{@local}#{file}"
+      "#{@local}/#{file}".gsub(/\/\/+/, '/')
     end
 
     def grit_repo
