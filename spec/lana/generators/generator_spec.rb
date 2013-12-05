@@ -25,10 +25,15 @@ describe Lana::Generators::Generator do
     expect(gen.output).to eq('output.pdf')
   end
 
-  xit 'generates an output' do
+  it 'calls pandoc from the command line' do
+    Kernel.should_receive(:system) do |cmd|
+    	expect(cmd).to match page_one
+    	expect(cmd).to match page_two
+    	expect(cmd).to match output_path
+		end
+
     gen = subject.new([page_one, page_two], output_path)
     gen.generate
-    expect(File.exists?(output_path)).to eq(true)
   end
 
   it 'raises when a file is not found' do

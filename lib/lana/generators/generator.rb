@@ -14,7 +14,7 @@ module Lana
 
       def generate
         verify_paths_exist
-        system("pandoc #{options} -o #{output} #{paths.join(' ')}")
+        Kernel.system("pandoc #{options} -o #{output} #{paths.join(' ')}")
       end
 
       private
